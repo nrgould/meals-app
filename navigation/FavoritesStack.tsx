@@ -1,18 +1,17 @@
+import { Platform } from 'react-native';
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import CategoriesScreen from '../screens/CategoriesScreen';
-import CategoryMealsScreen from '../screens/CategoryMealsScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
 import MealDetailsScreen from '../screens/MealDetailsScreen';
 import Colors from '../constants/Colors';
-import { Platform } from 'react-native';
+import CustomHeaderButton from '../components/HeaderButton';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../components/HeaderButton';
 
-const MealsStackNavigator = createStackNavigator();
+const FavoritesStackNavigator = createStackNavigator();
 
-export default function MealsStack() {
+export default function FavoritesStack() {
 	return (
-		<MealsStackNavigator.Navigator
+		<FavoritesStackNavigator.Navigator
 			screenOptions={{
 				headerStyle: {
 					backgroundColor:
@@ -24,29 +23,20 @@ export default function MealsStack() {
 				},
 				headerTintColor: Platform.OS === 'android' ? 'white' : 'black',
 			}}>
-			<MealsStackNavigator.Screen
-				options={{ title: 'Categories' }}
-				name='Categories'
-				component={CategoriesScreen}
+			<FavoritesStackNavigator.Screen
+				options={{ title: 'Your Favorites' }}
+				name='Favorites'
+				component={FavoritesScreen}
 			/>
-			<MealsStackNavigator.Screen
-				options={({ route }: any) => ({
-					title: route.params.category,
-					headerStyle: {
-						backgroundColor: route.params.color,
-					},
-				})}
-				name='CategoryMeals'
-				component={CategoryMealsScreen}
-			/>
-			<MealsStackNavigator.Screen
+			<FavoritesStackNavigator.Screen
 				options={({ route }: any) => ({
 					title: route.params.title,
 					headerStyle: {
 						backgroundColor: Colors.accentColor,
 					},
 					headerRight: () => (
-						<HeaderButtons HeaderButtonComponent={HeaderButton}>
+						<HeaderButtons
+							HeaderButtonComponent={CustomHeaderButton}>
 							<Item
 								title='Favorite'
 								iconName='ios-star'
@@ -60,6 +50,6 @@ export default function MealsStack() {
 				name='MealDetails'
 				component={MealDetailsScreen}
 			/>
-		</MealsStackNavigator.Navigator>
+		</FavoritesStackNavigator.Navigator>
 	);
 }

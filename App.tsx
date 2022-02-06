@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import MealsStack from './navigation/MealsStack';
 import { enableScreens } from 'react-native-screens';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import MealsTabs from './navigation/MealsTabs';
 
 enableScreens();
 
@@ -14,6 +15,8 @@ const fetchFonts = () => {
 		'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
 	});
 };
+
+const MealsDrawer = createDrawerNavigator();
 
 export default function App() {
 	const [dataLoaded, setDataLoaded] = useState(false);
@@ -30,7 +33,9 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<MealsStack />
+			<MealsDrawer.Navigator>
+				<MealsDrawer.Screen name='Meals' component={MealsTabs} />
+			</MealsDrawer.Navigator>
 		</NavigationContainer>
 	);
 }

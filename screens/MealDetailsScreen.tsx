@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { MEALS } from '../data/dummy-data';
 
@@ -13,11 +13,15 @@ export default function MealDetailsScreen({ navigation, route }: Props) {
 	const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 	return (
 		<View style={styles.screen}>
-			<Text>MealDetailsScreen</Text>
-			<Button
-				title='Go Back To Categories'
-				onPress={() => navigation.popToTop()}
-			/>
+			<ImageBackground
+				style={{ width: '100%', height: '100%' }}
+				source={{ uri: selectedMeal?.imageUrl }}>
+				<Text>{selectedMeal?.title}</Text>
+				<Button
+					title='Go Back To Categories'
+					onPress={() => navigation.popToTop()}
+				/>
+			</ImageBackground>
 		</View>
 	);
 }
