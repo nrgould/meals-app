@@ -1,11 +1,38 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
+import { CATEGORIES } from '../data/dummy-data';
+import { FlatList } from 'react-native-gesture-handler';
+import CategoryGridTile from '../components/CategoryGridTile';
 
-export default function CategoriesScreen() {
+interface Props {
+	navigation?: any;
+}
+
+export default function CategoriesScreen({ navigation }: Props) {
+	function renderGridItem(itemData: { item: any }) {
+		return (
+			<CategoryGridTile
+				title={itemData.item.title}
+				color={itemData.item.color}
+				id={itemData.item.id}
+				navigation={navigation}
+				onSelect={() => {
+					navigation.navigate('CategoryMeals', {
+						categoryId: itemData.item.id,
+						category: itemData.item.title,
+						color: itemData.item.color,
+					});
+				}}
+			/>
+		);
+	}
 	return (
-		<View>
-			<Text>Categories Screen</Text>
-		</View>
+		<FlatList
+			keyExtractor={(item) => item.id}
+			numColumns={2}
+			data={CATEGORIES}
+			renderItem={renderGridItem}
+		/>
 	);
 }
 
