@@ -7,10 +7,10 @@ import Colors from '../constants/Colors';
 export default function CustomHeaderButton(props: any) {
 	return (
 		<HeaderButton
+			color={Platform.OS === 'android' ? Colors.primaryColor : 'white'}
 			{...props}
 			IconComponent={Ionicons}
 			iconSize={23}
-			color={Platform.OS === 'android' ? Colors.primaryColor : 'white'}
 		/>
 	);
 }

@@ -1,12 +1,4 @@
-import {
-	Button,
-	ImageBackground,
-	StyleSheet,
-	Text,
-	View,
-	ScrollView,
-	Image,
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import React from 'react';
 import { MEALS } from '../data/dummy-data';
 import DefaultText from '../components/DefaultText';
@@ -31,10 +23,7 @@ function ListItem({ children, index }: any) {
 
 export default function MealDetailsScreen({ route }: Props) {
 	const { id } = route.params;
-
 	const selectedMeal = MEALS.find((meal) => meal.id === id);
-
-	console.log(selectedMeal);
 	return (
 		<ScrollView>
 			<Image
