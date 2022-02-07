@@ -22,9 +22,10 @@ export default function FavoritesStack() {
 					shadowRadius: 10,
 				},
 				headerTintColor: Platform.OS === 'android' ? 'white' : 'black',
+				headerMode: 'float',
 			}}>
 			<FavoritesStackNavigator.Screen
-				options={{ title: 'Your Favorites' }}
+				options={{ title: 'Your Favorites', headerShown: false }}
 				name='Favorites'
 				component={FavoritesScreen}
 			/>
@@ -34,6 +35,7 @@ export default function FavoritesStack() {
 					headerStyle: {
 						backgroundColor: Colors.accentColor,
 					},
+
 					headerRight: () => (
 						<HeaderButtons
 							HeaderButtonComponent={CustomHeaderButton}>
@@ -45,7 +47,6 @@ export default function FavoritesStack() {
 						</HeaderButtons>
 					),
 					headerTintColor: 'white',
-					presentation: 'modal',
 				})}
 				name='MealDetails'
 				component={MealDetailsScreen}

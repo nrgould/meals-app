@@ -25,6 +25,7 @@ export default function MealsTabs() {
 							/>
 						);
 					},
+					title: 'Meals',
 				}}
 				name='FindMeals'
 				component={MealsStack}
@@ -40,6 +41,7 @@ export default function MealsTabs() {
 							/>
 						);
 					},
+					title: 'Favorites',
 				}}
 				name='MyFavorites'
 				component={FavoritesStack}

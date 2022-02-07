@@ -1,6 +1,7 @@
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import DefaultText from './DefaultText';
 interface Props {
 	data: {
 		id: string;
@@ -42,9 +43,9 @@ export default function MealItem({ data, onSelectMeal }: Props) {
 							...styles.mealRow,
 							...styles.mealDetail,
 						}}>
-						<Text>{duration}m</Text>
-						<Text>{complexity.toUpperCase()}</Text>
-						<Text>{affordability.toUpperCase()}</Text>
+						<DefaultText>{duration}m</DefaultText>
+						<DefaultText>{complexity.toUpperCase()}</DefaultText>
+						<DefaultText>{affordability.toUpperCase()}</DefaultText>
 					</View>
 				</View>
 			</TouchableOpacity>

@@ -23,9 +23,10 @@ export default function MealsStack() {
 					shadowRadius: 10,
 				},
 				headerTintColor: Platform.OS === 'android' ? 'white' : 'black',
+				headerMode: 'float',
 			}}>
 			<MealsStackNavigator.Screen
-				options={{ title: 'Categories' }}
+				options={{ title: 'Categories', headerShown: false }}
 				name='Categories'
 				component={CategoriesScreen}
 			/>
@@ -55,7 +56,6 @@ export default function MealsStack() {
 						</HeaderButtons>
 					),
 					headerTintColor: 'white',
-					presentation: 'modal',
 				})}
 				name='MealDetails'
 				component={MealDetailsScreen}

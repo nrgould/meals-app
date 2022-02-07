@@ -1,11 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import MealsTabs from './navigation/MealsTabs';
+import FiltersScreen from './screens/FiltersScreen';
+import Colors from './constants/Colors';
+import FavoritesStack from './navigation/FavoritesStack';
+import MealsStack from './navigation/MealsStack';
 
 enableScreens();
 
@@ -33,8 +36,36 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<MealsDrawer.Navigator>
-				<MealsDrawer.Screen name='Meals' component={MealsTabs} />
+			<MealsDrawer.Navigator
+				screenOptions={{
+					headerShown: true,
+					headerTintColor: Colors.accentColor,
+					headerStyle: {
+						backgroundColor:
+							Platform.OS === 'android'
+								? Colors.primaryColor
+								: '',
+						shadowOpacity: 0.5,
+						shadowColor: 'black',
+						shadowOffset: { width: 10, height: 20 },
+						shadowRadius: 10,
+					},
+					drawerActiveTintColor: Colors.accentColor,
+					headerTitleStyle: {
+						fontFamily: 'open-sans-bold',
+					},
+					drawerLabelStyle: {
+						fontFamily: 'open-sans',
+					},
+					headerShadowVisible: true,
+				}}>
+				<MealsDrawer.Screen name='Meals' component={MealsStack} />
+				<MealsDrawer.Screen
+					name='MyFavorites'
+					component={FavoritesStack}
+					options={{ title: 'Favorites' }}
+				/>
+				<MealsDrawer.Screen name='Filters' component={FiltersScreen} />
 			</MealsDrawer.Navigator>
 		</NavigationContainer>
 	);
@@ -42,10 +73,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
 	},
 	text: {
 		fontFamily: 'open-sans',

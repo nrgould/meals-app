@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import React from 'react';
 import { CATEGORIES } from '../data/dummy-data';
 import { FlatList } from 'react-native-gesture-handler';
@@ -6,6 +5,7 @@ import CategoryGridTile from '../components/CategoryGridTile';
 
 interface Props {
 	navigation?: any;
+	route?: any;
 }
 
 export default function CategoriesScreen({ navigation }: Props) {
@@ -35,11 +35,3 @@ export default function CategoriesScreen({ navigation }: Props) {
 		/>
 	);
 }
-
-const styles = StyleSheet.create({
-	screen: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-});
