@@ -1,12 +1,9 @@
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
-import React from 'react';
-import { MEALS } from '../data/dummy-data';
+import React, { useEffect } from 'react';
 import DefaultText from '../components/DefaultText';
-
-interface Props {
-	navigation?: any;
-	route?: any;
-}
+import { useSelector } from 'react-redux';
+import { RootState } from '../App';
+import Meal from '../models/meal';
 
 function ListItem({ children, index }: any) {
 	return (
@@ -21,9 +18,22 @@ function ListItem({ children, index }: any) {
 	);
 }
 
-export default function MealDetailsScreen({ route }: Props) {
+interface Props {
+	navigation?: any;
+	route?: any;
+}
+
+export default function MealDetailsScreen({ navigation, route }: Props) {
 	const { id } = route.params;
-	const selectedMeal = MEALS.find((meal) => meal.id === id);
+	const availableMeals = useSelector((state: RootState) => state.meals.meals);
+	const isFavorite = useSelector((state: RootState) =>
+		state.meals.favoriteMeals.some((meal: Meal) => meal.id === id)
+	);
+	const selectedMeal = availableMeals.find((meal: any) => meal.id === id);
+
+	useEffect(() => {
+		navigation.setParams({ isFavorite });
+	}, [isFavorite]);
 	return (
 		<ScrollView>
 			<Image
@@ -45,13 +55,13 @@ export default function MealDetailsScreen({ route }: Props) {
 			</View>
 			<View style={styles.screen}>
 				<Text style={styles.title}>Ingredients</Text>
-				{selectedMeal?.ingredients.map((ing, i) => (
+				{selectedMeal?.ingredients.map((ing: string, i: number) => (
 					<ListItem index={i} key={ing}>
 						{ing}
 					</ListItem>
 				))}
 				<Text style={styles.title}>Steps</Text>
-				{selectedMeal?.steps.map((step, i) => (
+				{selectedMeal?.steps.map((step: string, i: number) => (
 					<ListItem key={i}>{step}</ListItem>
 				))}
 			</View>

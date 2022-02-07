@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
@@ -9,8 +9,16 @@ import FiltersScreen from './screens/FiltersScreen';
 import Colors from './constants/Colors';
 import FavoritesStack from './navigation/FavoritesStack';
 import MealsStack from './navigation/MealsStack';
+import { createStore, combineReducers } from 'redux';
+import mealsReducer from './store/reducers/meals';
+import { Provider } from 'react-redux';
 
 enableScreens();
+
+const rootReducer = combineReducers({ meals: mealsReducer });
+const store = createStore(rootReducer);
+
+export type RootState = ReturnType<typeof rootReducer>;
 
 const fetchFonts = () => {
 	return Font.loadAsync({
@@ -35,47 +43,43 @@ export default function App() {
 	}
 
 	return (
-		<NavigationContainer>
-			<MealsDrawer.Navigator
-				screenOptions={{
-					headerShown: true,
-					headerTintColor: Colors.accentColor,
-					headerStyle: {
-						backgroundColor:
-							Platform.OS === 'android'
-								? Colors.primaryColor
-								: '',
-						shadowOpacity: 0.5,
-						shadowColor: 'black',
-						shadowOffset: { width: 10, height: 20 },
-						shadowRadius: 10,
-					},
-					drawerActiveTintColor: Colors.accentColor,
-					headerTitleStyle: {
-						fontFamily: 'open-sans-bold',
-					},
-					drawerLabelStyle: {
-						fontFamily: 'open-sans',
-					},
-					headerShadowVisible: true,
-				}}>
-				<MealsDrawer.Screen name='Meals' component={MealsStack} />
-				<MealsDrawer.Screen
-					name='MyFavorites'
-					component={FavoritesStack}
-					options={{ title: 'Favorites' }}
-				/>
-				<MealsDrawer.Screen name='Filters' component={FiltersScreen} />
-			</MealsDrawer.Navigator>
-		</NavigationContainer>
+		<Provider store={store}>
+			<NavigationContainer>
+				<MealsDrawer.Navigator
+					screenOptions={{
+						headerShown: true,
+						headerTintColor: Colors.accentColor,
+						headerStyle: {
+							backgroundColor:
+								Platform.OS === 'android'
+									? Colors.primaryColor
+									: '',
+							shadowOpacity: 0.5,
+							shadowColor: 'black',
+							shadowOffset: { width: 10, height: 20 },
+							shadowRadius: 10,
+						},
+						drawerActiveTintColor: Colors.accentColor,
+						headerTitleStyle: {
+							fontFamily: 'open-sans-bold',
+						},
+						drawerLabelStyle: {
+							fontFamily: 'open-sans',
+						},
+						headerShadowVisible: true,
+					}}>
+					<MealsDrawer.Screen name='Meals' component={MealsStack} />
+					<MealsDrawer.Screen
+						name='MyFavorites'
+						component={FavoritesStack}
+						options={{ title: 'Favorites' }}
+					/>
+					<MealsDrawer.Screen
+						name='Filters'
+						component={FiltersScreen}
+					/>
+				</MealsDrawer.Navigator>
+			</NavigationContainer>
+		</Provider>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		backgroundColor: '#fff',
-	},
-	text: {
-		fontFamily: 'open-sans',
-	},
-});

@@ -5,22 +5,21 @@ import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailsScreen from '../screens/MealDetailsScreen';
 import Colors from '../constants/Colors';
 import { Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../components/HeaderButton';
+import CustomHeaderButton from '../components/HeaderButton';
+import { toggleFavorite } from '../store/actions/meals';
 
 const MealsStackNavigator = createStackNavigator();
 
 export default function MealsStack() {
+	const dispatch = useDispatch();
 	return (
 		<MealsStackNavigator.Navigator
 			screenOptions={{
 				headerStyle: {
 					backgroundColor:
 						Platform.OS === 'android' ? Colors.primaryColor : '',
-					shadowOpacity: 0.5,
-					shadowColor: 'black',
-					shadowOffset: { width: 10, height: 20 },
-					shadowRadius: 10,
 				},
 				headerTintColor: Platform.OS === 'android' ? 'white' : 'black',
 				headerMode: 'float',
@@ -34,8 +33,9 @@ export default function MealsStack() {
 				options={({ route }: any) => ({
 					title: route.params.category,
 					headerStyle: {
-						backgroundColor: route.params.color,
+						backgroundColor: Colors.accentColor,
 					},
+					headerTintColor: 'white',
 				})}
 				name='CategoryMeals'
 				component={CategoryMealsScreen}
@@ -47,11 +47,18 @@ export default function MealsStack() {
 						backgroundColor: Colors.accentColor,
 					},
 					headerRight: () => (
-						<HeaderButtons HeaderButtonComponent={HeaderButton}>
+						<HeaderButtons
+							HeaderButtonComponent={CustomHeaderButton}>
 							<Item
 								title='Favorite'
-								iconName='ios-star'
-								onPress={() => console.log('mark as favorite')}
+								iconName={
+									route.params.isFavorite
+										? 'ios-star'
+										: 'ios-star-outline'
+								}
+								onPress={() =>
+									dispatch(toggleFavorite(route.params.id))
+								}
 							/>
 						</HeaderButtons>
 					),

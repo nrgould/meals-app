@@ -2,22 +2,9 @@ import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DefaultText from './DefaultText';
+import Meal from '../models/meal';
 interface Props {
-	data: {
-		id: string;
-		categoryIds: string[];
-		title: string;
-		affordability: string;
-		complexity: string;
-		imageUrl: string;
-		duration: number;
-		ingredients: string[];
-		steps: string[];
-		isGlutenFree: boolean;
-		isVegan: boolean;
-		isVegetarian: boolean;
-		isLactoseFree: boolean;
-	};
+	data: Meal;
 	onSelectMeal: () => void;
 }
 
