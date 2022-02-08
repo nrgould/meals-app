@@ -9,16 +9,14 @@ import FiltersScreen from './screens/FiltersScreen';
 import Colors from './constants/Colors';
 import FavoritesStack from './navigation/FavoritesStack';
 import MealsStack from './navigation/MealsStack';
-import { createStore, combineReducers } from 'redux';
-import mealsReducer from './store/reducers/meals';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { rootReducer } from './store/reducers/rootReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 enableScreens();
 
-const rootReducer = combineReducers({ meals: mealsReducer });
-const store = createStore(rootReducer);
-
-export type RootState = ReturnType<typeof rootReducer>;
+const store = createStore(rootReducer, composeWithDevTools());
 
 const fetchFonts = () => {
 	return Font.loadAsync({

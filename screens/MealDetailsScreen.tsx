@@ -2,8 +2,8 @@ import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import React, { useEffect } from 'react';
 import DefaultText from '../components/DefaultText';
 import { useSelector } from 'react-redux';
-import { RootState } from '../App';
 import Meal from '../models/meal';
+import { RootState } from '../types';
 
 function ListItem({ children, index }: any) {
 	return (

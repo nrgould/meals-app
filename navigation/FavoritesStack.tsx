@@ -6,10 +6,13 @@ import MealDetailsScreen from '../screens/MealDetailsScreen';
 import Colors from '../constants/Colors';
 import CustomHeaderButton from '../components/HeaderButton';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useDispatch } from 'react-redux';
+import { toggleFavorite } from '../store/actions/meals';
 
 const FavoritesStackNavigator = createStackNavigator();
 
 export default function FavoritesStack() {
+	const dispatch = useDispatch()
 	return (
 		<FavoritesStackNavigator.Navigator
 			screenOptions={{
@@ -41,8 +44,14 @@ export default function FavoritesStack() {
 							HeaderButtonComponent={CustomHeaderButton}>
 							<Item
 								title='Favorite'
-								iconName='ios-star'
-								onPress={() => console.log('mark as favorite')}
+								iconName={
+									route.params.isFavorite
+										? 'ios-star'
+										: 'ios-star-outline'
+								}
+								onPress={() =>
+									dispatch(toggleFavorite(route.params.id))
+								}
 							/>
 						</HeaderButtons>
 					),

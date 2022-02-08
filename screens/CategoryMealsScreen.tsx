@@ -1,8 +1,9 @@
 import React from 'react';
-import MealItem from '../components/MealItem';
 import MealList from '../components/MealList';
 import { useSelector } from 'react-redux';
-import { RootState } from '../App';
+import { RootState } from '../types';
+import { StyleSheet, View } from 'react-native';
+import DefaultText from '../components/DefaultText';
 
 interface Props {
 	navigation?: any;
@@ -20,5 +21,21 @@ export default function CategoryMealsScreen({ navigation, route }: Props) {
 		(meal: any) => meal.categoryIds.indexOf(categoryId) >= 0
 	);
 
+	if (displayedMeals.length === 0 || !displayedMeals) {
+		return (
+			<View style={styles.content}>
+				<DefaultText>No meals found. Check your filters!</DefaultText>
+			</View>
+		);
+	}
+
 	return <MealList navigation={navigation} data={displayedMeals} />;
 }
+
+const styles = StyleSheet.create({
+	content: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+});

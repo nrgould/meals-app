@@ -17,11 +17,17 @@ export default function MealList({ navigation, data }: Props) {
 	);
 
 	function renderMealItem(itemData: { item: Meal }) {
+		const isFavorite = favoriteMeals.some(
+			(meal: Meal) => meal.id === itemData.item.id
+		);
 		return (
 			<MealItem
 				data={itemData.item}
 				onSelectMeal={() =>
-					navigation.navigate('MealDetails', { ...itemData.item })
+					navigation.navigate('MealDetails', {
+						...itemData.item,
+						isFavorite,
+					})
 				}
 			/>
 		);

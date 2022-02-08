@@ -1,13 +1,12 @@
+import { Filters } from '../../types';
+
 export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
-export const TOGGLE_GLUTEN_FREE = 'TOGGLE_GLUTEN_FREE';
-export const TOGGLE_LACTOSE_FREE = 'TOGGLE_LACTOSE_FREE';
-export const TOGGLE_VEGAN = 'TOGGLE_VEGAN';
-export const TOGGLE_VEGETARIAN = 'TOGGLE_VEGETARIAN';
+export const SET_FILTERS = 'SET_FILTERS';
 
 export function toggleFavorite(id: string) {
 	return { type: TOGGLE_FAVORITE, payload: { mealId: id } };
 }
 
-export function toggleGlutenFree() {
-	return { type: TOGGLE_GLUTEN_FREE };
+export function setFilters(filterSettings: Filters) {
+	return { type: SET_FILTERS, payload: { filters: filterSettings } };
 }
